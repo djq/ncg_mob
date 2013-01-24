@@ -177,11 +177,11 @@ createMap = function (){
 			maxResolution: 15654.0339,
 			maxExtent: new OpenLayers.Bounds(-20037508.34, -20037508.34, 20037508.34, 20037508.34),
 			displayProjection: proj_900913,			
-			controls: [		//remove controls from the screen
+			/*controls: [		//remove controls from the screen
 				new OpenLayers.Control.Navigation(),
 				new OpenLayers.Control.ArgParser(),
 				new OpenLayers.Control.Attribution()
-			],
+			],*/
 			renderers: ["SVG", "Canvas", "VML"]
 		};	
 		var options2 = {
@@ -190,24 +190,24 @@ createMap = function (){
 			numZoomLevels: 20,
 			maxResolution: 15654.0339,
 			maxExtent: new OpenLayers.Bounds(-20037508.34, -20037508.34, 20037508.34, 20037508.34),
-			displayProjection: proj_900913,			
+			displayProjection: proj_900913/*,			
 			controls: [		//remove controls from the screen
 				new OpenLayers.Control.Navigation(),
 				new OpenLayers.Control.ArgParser(),
 				new OpenLayers.Control.Attribution()
-			]
+			]*/
 		};		
 					
 		//map = new OpenLayers.Map("basicMap", options);
 		map = new OpenLayers.Map("basicMap", options);
 
 		// Use OSM
-		//osm = new OpenLayers.Layer.OSM();			
-		//map.addLayer(osm);				
+		osm = new OpenLayers.Layer.OSM();			
+		map.addLayer(osm);				
 
 		// using stamen
-		var layer = new OpenLayers.Layer.Stamen("toner");			
-		map.addLayer(layer);
+		//var layer = new OpenLayers.Layer.Stamen("toner");			
+		//map.addLayer(layer);
 	
 		var mapCenter = new OpenLayers.LonLat(-7235119,3977082);				
 		map.setCenter(mapCenter, 3);  

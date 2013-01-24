@@ -4,12 +4,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
         <meta name="apple-mobile-web-app-capable" content="yes">                
                
-	    <title>cityscale | v6 : routing</title>
+	    <title>cityscale | v7 : routing</title>
 	            
         <!-- ########################## LIBRARIES ########################## -->
         <script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script><!-- google: basemap-->    	
-    	<!-- <script type="text/javascript" src="lib/jquery.js" ></script>-->	 			<!-- jQuery  --> 
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    	<script src="http://code.jquery.com/jquery.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script> 
 		<script type="text/javascript" src="lib/raphael.js"></script>    			<!-- Raphael  -->
 		<script type="text/javascript" src="lib/highcharts.js"></script>			<!-- highcharts  -->	   
     	<script type="text/javascript" src="lib/OpenLayers.debug.js"></script> 		<!-- OpenLayers  -->		
@@ -17,6 +17,9 @@
 		<script type="text/javascript" src="lib/spin.js"></script>      			<!-- spin: http://fgnass.github.com/spin.js/ -->
 		<script type="text/javascript" src="lib/stamen.js"></script>			    <!-- stamen maps -->
         <script type="text/javascript" src="lib/simple-slider.js"></script>         <!-- slider -->
+
+        <script src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script>
+        <script src="http://openlayers.org/dev/OpenLayers.mobile.js"></script>
         
         <!-- ########################## General Scripts ########################## -->
         <script type="text/javascript" src="js/openlayersSettings.js"></script> 		<!-- Openlayers styles  -->		
@@ -41,75 +44,6 @@
 
 		<!-- Map canvas-->
 		<div id="basicMap"></div>	
-
-		<!-- Charts-->
-	<!--	<div id="chart-1" class="chart">
-	 <table>
-    <tr>
-        <td class="a">&nbsp;</td>
-        <td class="b">&nbsp;</td>
-        <td class="c">&nbsp;</td>
-        <td class="b">&nbsp;</td>
-        <td class="c">&nbsp;</td>
-        <td class="a">&nbsp;</td>
-        <td class="c">&nbsp;</td>
-  </tr>
-    <tr>
-        <td class="a">&nbsp;</td>
-        <td class="b">&nbsp;</td>
-        <td class="c">&nbsp;</td>
-        <td class="b">&nbsp;</td>
-        <td class="c">&nbsp;</td>
-        <td class="a">&nbsp;</td>
-        <td class="c">&nbsp;</td>
-  </tr>
-    <tr>
-        <td class="a">&nbsp;</td>
-        <td class="b">&nbsp;</td>
-        <td class="c">&nbsp;</td>
-        <td class="b">&nbsp;</td>
-        <td class="c">&nbsp;</td>
-        <td class="a">&nbsp;</td>
-        <td class="c">&nbsp;</td>
-  </tr>
-    <tr>
-        <td class="b">&nbsp;</td>
-        <td class="b">&nbsp;</td>
-        <td class="c">&nbsp;</td>
-        <td class="a">&nbsp;</td>
-        <td class="c">&nbsp;</td>
-        <td class="a">&nbsp;</td>
-        <td class="a">&nbsp;</td>
-  </tr>
-   <tr>
-        <td class="a">&nbsp;</td>
-        <td class="c">&nbsp;</td>
-        <td class="c">&nbsp;</td>
-        <td class="a">&nbsp;</td>
-        <td class="c">&nbsp;</td>
-        <td class="a">&nbsp;</td>
-        <td class="b">&nbsp;</td>
-  </tr>
-   <tr>
-        <td class="c">&nbsp;</td>
-        <td class="b">&nbsp;</td>
-        <td class="a">&nbsp;</td>
-        <td class="c">&nbsp;</td>
-        <td class="b">&nbsp;</td>
-        <td class="a">&nbsp;</td>
-        <td class="b">&nbsp;</td>
-  </tr>
-   <tr>
-        <td class="c">&nbsp;</td>
-        <td class="b">&nbsp;</td>
-        <td class="a">&nbsp;</td>
-        <td class="c">&nbsp;</td>
-        <td class="b">&nbsp;</td>
-        <td class="a">&nbsp;</td>
-        <td class="b">&nbsp;</td>
-  </tr>
-</table> 
-		</div>	-->
 			
 		<!-- Sidebar controls -->
 		<div id="sidebar" >
