@@ -1,4 +1,3 @@
-
 var divResize = function divResize(){
 
 	// get screen size
@@ -18,6 +17,10 @@ var divResize = function divResize(){
 		.width( state_width )
 		.height( state_height )
 
+	$('.state').css({
+		'max-width':300,
+		'max-height':300
+	})
 
 }
 
