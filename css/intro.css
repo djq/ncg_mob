@@ -2,31 +2,82 @@ body{
 	background-color: black;
 	font-family: 'Glegoo', sans-serif;	
 }
+#cover {position: fixed; height: 100%; width: 100%; top:0; left: 0; background: #000; z-index:9999;}
+#route{
+	background-color: #505050 ;
 
+}
+#user_address{
+	position: absolute;
+	float: left;
+	width: 75%;
+	margin-left: 11%;
+	margin-top: 20%;	
+}
+#address_start{
+	width: 75%;
+}
+#address_end{
+	width: 75%;
+}
+#geocode_button{
+	width: 75%;
+}
+#weather{
+	background-color: #505050 ;
+}
 #wrapper{
 	display:block;
 	width:100%;	
 	height:100%;		
-	margin-left:  5px;
-	/*margin-right: 10px;   		*/
+	margin-left: 5px;
+	/*margin-right: 10px;  */
 }
-
 .state{	
 	position: relative;
     float: left;
     margin: 3px;
-	width: 90px;
+	width: 10%;
 	height: 90px;
 	border-style:solid;
-	border-width: 2px;
+	border-width: 3px;
 	border-color:white;	
 	background-color: black;
 	border-radius: 4px;
 }
+
+.system_state{
+	position: absolute;
+	float: left;
+	margin-left: 11%;
+	margin-top: 30%;
+	font-size: 25px;
+}
+
+.time{
+	position: absolute;
+	bottom: 15%;
+	left: 12%;
+	font-size: 25px;
+}
 .state:hover{
 	border-color:gray;	
-	background-color:gray;	
+	background-color:gray;
 	opacity: 0.8;
+}
+.state:hover .info_front{
+	position: absolute;
+	margin: 3px;
+    bottom: 0px;
+    right: 0px;
+	width: 25px;
+	height: 25px;			
+	z-index: 9999;
+	background-image: url('../img/info_g_25.png');	
+}
+
+.state:hover .info_front:hover{
+	background-image: url('../img/info_w_25.png');
 }
 
 .description{
@@ -36,27 +87,35 @@ body{
 	color: white;
 
 }
-
 .status{
 	position: absolute;
     bottom: 30px;
     top: 0px;
-    right: 0px;
-	width: 30px;
+    left: 0px;
+	width: 10%;
 	height: 100%;
 	background-color: red;	
 }
 
-.info{
+
+.info_back{
 	position: absolute;
     bottom: 0px;
     right: 0px;
 	width: 30px;
-	height: 30px;
-	background-color: pink;	
+	height: 30px;	
+	background-image: url('../img/cancel_g_30.png');
+	z-index: 9999;
 }
-
-#worktitle{
+.info_back:hover{
+	background-image: url('../img/cancel_b_30.png');	
+	z-index: 999;
+}
+#test{
+	width: 100%;
+	height: 100%;
+}
+#pagetitle{
 	position: relative;
 	width: 100%;
 	height: 50px;
@@ -66,23 +125,40 @@ body{
 	color: white;
 	font-weight: bold;
 }
-
 .title{
 	position: relative;
-	margin:10px;
+	margin-left: 11%;
+	margin-top:2px; 
 	float:left;
 	font-weight: bold;
 	color: white;
 	font-size: 15px;
-	padding: 3px;
+	padding: 2px;
 	background-color: black;
 	border-radius: 3px;
 }
 
+.about_body{
+	float: left;
+	margin-left: 10%;
+	margin-top: 2px;
+}
+
+#u1_a{
+	position: absolute;
+	right: 5%;
+	top: 1%;
+}
+
+#u1_b{
+	margin-top: 5%;
+	margin-left: 12%;
+}
+
 a:link {text-decoration:none; color: gray}
-a:visited {text-decoration:none;color: gray}
+a:visited {text-decoration:none;color: white}
 a:hover {text-decoration:none;color: gray}
-a:active {text-decoration:none;color: gray}
+a:active {text-decoration:none;color: white}
 
 /* making div's flip */
 .flip {

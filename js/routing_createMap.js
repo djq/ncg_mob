@@ -36,9 +36,9 @@ initialize = function (){
 		
 		// Create map controls	
 		createMap();			// Main map		
-		mapControls();			// Map controls 
-		makeInterface();		// Interface			
-		tableHover();		
+		//mapControls();			// Map controls 
+		//makeInterface();		// Interface			
+		
 		
 		$('#report').hide();					
 		geocoder = new google.maps.Geocoder();	// google function (limit of 15000 per day) but also rate-limited per time           
@@ -202,15 +202,16 @@ createMap = function (){
 		map = new OpenLayers.Map("basicMap", options);
 
 		// Use OSM
-		osm = new OpenLayers.Layer.OSM();			
-		map.addLayer(osm);				
+		//osm = new OpenLayers.Layer.OSM();			
+		//map.addLayer(osm);				
 
 		// using stamen
-		//var layer = new OpenLayers.Layer.Stamen("toner");			
-		//map.addLayer(layer);
+		var layer = new OpenLayers.Layer.Stamen("toner");			
+		map.addLayer(layer);
 	
-		var mapCenter = new OpenLayers.LonLat(-7235119,3977082);				
-		map.setCenter(mapCenter, 3);  
+		//var mapCenter = new OpenLayers.LonLat(-7235119,3977082);				
+		//map.setCenter(53.35, -6.26, 11);  
+		centerMap(-6.0, 53.31,  11)		// center map on Ireland
 				
 		currentLayer = new OpenLayers.Layer.Vector("currentLayer");		// Add drawing layer #0		
 		oldLayer = new OpenLayers.Layer.Vector("oldLayer");				// Add drawing layer #1
@@ -229,7 +230,7 @@ createMap = function (){
 		r6 = new OpenLayers.Layer.Vector("r6", {styleMap:routing_style});		
 
 		map.addLayers([r1, r2, r3, r4, r5, r6]);	
-		centerMap()		// center map on Ireland
+		
 
 		r1.setVisibility(true);
 		r2.setVisibility(false);	
@@ -375,11 +376,11 @@ createMap = function (){
 }
 
 // center map (currently Dublin is hardcoded)
-centerMap = function () {	
+centerMap = function (lon, lat, zoomLevel) {	
 	
-	var centerPoint = new OpenLayers.LonLat(-6.26, 53.35);		// dublin, zoom 11
+	var centerPoint = new OpenLayers.LonLat(lon, lat);		// dublin, zoom 11
 	centerPoint.transform(new OpenLayers.Projection("EPSG:4326"), map.getProjectionObject()); 
-	map.setCenter(centerPoint, 15); //11
+	map.setCenter(centerPoint, zoomLevel); //11
 	
 }
 
@@ -441,37 +442,6 @@ getRoutes = function(r_id, start_id, end_id, cost, layer){
 	dataType:'json'
 	});	
 
-}
-
-tableHover = function tableHover(){
-
-	$('td').hover(function() {
-			    var t = parseInt($(this).index()) + 1;
-			    $('td:nth-child(' + t + ')').first().addClass('highlightedTop');
-			    $('td:nth-child(' + t + ')').addClass('highlighted');			    
-			    $('td:nth-child(' + t + ')').last().removeClass('highlighted').addClass('x');
-			    $('td:nth-child(' + t + ')').last().append("<div class='arrow'></div>");
-
-			    if(t>1){
-			        var t1 = t -1;		        
-			        $('td:nth-child(' + t1 + ')').addClass('highlightedPrev');
-			        $('td:nth-child(' + t1 + ')').last().removeClass('highlightedPrev');
-
-			    }
-			},
-			function() {
-			    var t = parseInt($(this).index()) + 1;
-			    $('td:nth-child(' + t + ')').removeClass('highlighted ');
-			    $('td:nth-child(' + t + ')').first().removeClass('highlightedTop');
-			    $('td:nth-child(' + t + ')').last().removeClass('highlightedBottom');
-			    $('td:nth-child(' + t + ')').last().removeClass('x');
-			    //$('td:nth-child(' + t + ')').last().remove("<div class='arrow'></div>")
-			    $('.arrow').remove();
-			        if(t>1){
-			         var t1 = t -1;
-			         $('td:nth-child(' + t1 + ')').removeClass('highlightedPrev');
-			    }
-			});
 }
 
 
