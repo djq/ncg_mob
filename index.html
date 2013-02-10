@@ -4,123 +4,177 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
         <meta name="apple-mobile-web-app-capable" content="yes">                
                
-	    <title>cityscale | v7</title>
+	    <title>cityscale|dublin </title>
 	            
         <!-- ########################## LIBRARIES ########################## -->     	
-        <!--<script src="phonegap.js"></script>	 -->
+        <!--<script src="phonegap.js"></script>-->
     	<script src="http://code.jquery.com/jquery.min.js"></script>
+    	<script type="text/javascript" src="lib/OpenLayers.debug.js"></script> 		<!-- OpenLayers  -->	
+    	<script type="text/javascript" src="lib/stamen.js"></script>			    <!-- stamen maps -->
         <!--<script src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script>-->
-        <script src="http://openlayers.org/dev/OpenLayers.mobile.js"></script>
-        <link rel="stylesheet" href="http://openlayers.org/dev/theme/default/style.mobile.css" type="text/css">
+        <!--<script src="http://openlayers.org/dev/OpenLayers.mobile.js"></script>-->
+        <!--<link rel="stylesheet" href="http://openlayers.org/dev/theme/default/style.mobile.css" type="text/css">
         <link rel="stylesheet" href="css/style.mobile-jq.css" type="text/css">        
-        <script src="lib/mobile-base.js"></script>
+        <script src="lib/mobile-base.js"></script>-->
         <!--<script src="lib/mobile-jq.js"></script> -->
         
         <!-- ########################## DQ Scripts ########################## -->        
         <script type="text/javascript" src="js/layout.js"></script> 	<!-- Intro functionality  -->	
-        <script type="text/javascript" src="js/status.js"></script> 
-
+        <script type="text/javascript" src="js/status.js"></script>       
+        <script type="text/javascript" src="js/openlayersSettings.js"></script> 		<!-- Openlayers styles  -->		
+        <script type="text/javascript" src="js/routing_createMap.js"></script>    		<!-- Make map controls  -->		
 		
-		<!-- ########################## CSS STYLE ########################## -->            
-        <link rel="stylesheet" href="css/intro.css" type="text/css">       
+		<!-- ########################## CSS STYLE ########################## -->                   
         <icon src="icon.png" />   
         <link rel="icon" type="image/ico" href="favicon.ico" >
         <link href='http://fonts.googleapis.com/css?family=Glegoo' rel='stylesheet' type='text/css'>
 
+
+
 	</head>
-<body onload="divResize()">
+<body >
 
-	<div id="wrapper">
+	<!-- <div id="cover">cityscale: realtime analysis of dublin</div> -->
 
-		<div id="worktitle">cityscale:dublin</div>
+	<div id="outer_wrapper">
+	<div id="pagetitle"><a href="">&nbsp &nbsp realtime</a> | <a href="">accessibility</a></div>
+	
+	<div id="wrapper">		
 				
-				<!--Initial User Location and Destination -->
-				<div  class="state face front">					
-						<div id="v0" class="flip">
-							<a href="http://ncg.urbmet.com/v7/routing.html"> 
-						    <div class="card">
-								<div class="face front">
-								   	<div class="title">Start/End</div>							   						        	
-								</div>
-								<div class="face back">
-								  	user preferences of some sort
-								</div>
-							</div>
+			<!--Initial User Location and Destination -->
+			<div  class="state ">					
+				<div id="u0" class="flip">							
+				    <div class="card">
+						<div class="face front">
+						   	<div class="title">directions</div>		
+						   	<div id="route" class='status'></div>
+						   	    		<!-- enter Origin/Dest-->
+							    		 <div id = "user_address" class="grayBg"> 
+							    					<div id="circle_start" class="circle"></div>
+							    					<input id="address_start" class="text" type="text" title = "Enter start" value="here">  
+							    					<div id="circle_end" class="circle"></div>
+							    					<input id="address_end" class="text" type="text" title = "Enter end" value="there">        
+							    					<input id="geocode_button" class= "input_button" type="button" value="calculate" onclick="codeAddress()">     
+							    		</div>
+						   	<div class='info_front'></div>						   						        	
+						</div>
+						<div class="face back">
+						  	<div class="title_back">What can I reach in 15 minutes?</div>
+						  	<div class='info_back'></div>
+						</div>
+					</div>
+				</div>					
+			</div>		
 
-							</a> 
-						</div>					
-				</div>		
+			<!--Weather-->
+			<div class="state face front">				
+				<div class="flip">						
+				    <div class="card">					    	
+						<div class="face front">									
+					   		<div class="title">weather</div>
+							<div ><img id="u1_a" src=""></div>
+							<div id="weather" class='status'></div>
+							<div id="u1_b" class="description"></div>
+							<div class='info_front'></div>																       
+						</div>
+						<div class="face back">
+						  	<div class="title title_back">weather info</div>
+						  	<div class="about_body">We are using the OpenWeather API to assess the weather conditions around Dublin. Once you input a start/end the weather conditions along your route are updated.</div>	
+						  	<div class='info_back'></div>	
+						</div>
+					</div>						
+				</div>				
+			</div>	
 
 			<!--Public Transport State -->
 			<div  class="state face front">				
-					<div id="v1" class="flip">
-						<a href="http://ncg.urbmet.com/v7/area.html">
-					    <div class="card">
-							<div class="face front">
-							   	<div class="title">Public Transport</div>
-							   		<div class='status'></div>
-									<div class='info'></div>								        	
-							</div>
-							<div class="face back">
-							  	user preferences of some sort
-							</div>
+				<div class="flip">						
+				    <div class="card">					    	
+						<div class="face front">									
+					   		<div class="title">public transport</div>
+					   		<div id="v1" class='status'></div>		
+					   		<div id="v1_a" class='time'></div>	
+					   		<div id="v1_b" class='system_state'></div>					
+					   		<div class='info_front'></div>		    
 						</div>
-						
-						</a>
-					</div>				
+						<div class="face back">
+						  	<div class="title_back">public transport info</div>
+						  	<div class="about_body">We are using OpenTripPlanner and timetable GTFS data from Dublin Bus. We hope to make this realtime once data is made available.</div>	
+						  	<div class='info_back'></div>		
+						</div>
+					</div>						
+				</div>				
 			</div>
-			
 
-			<a href="http://ncg.urbmet.com/v7/iso.html">
-				<div id="v2" class="state">
-					<div class="title">Driving</div>
-					<div class="description"></div>
-					<div class='info'></div>
-				</div>
-			</a>
+			<!--Driving-->
+			<div  class="state face front">				
+				<div class="flip">						
+				    <div class="card">					    	
+						<div class="face front">									
+					   		<div class="title">driving</div>
+					   		<div id="v2" class='status'></div>
+					   		<div id="v2_a" class='time'></div>		
+					   		<div id="v2_b" class='system_state'></div>		
+							<div class='info_front'></div>																       
+						</div>
+						<div class="face back">
+						  	<div class="title_back">driving info</div>
+						  	<div class="about_body">We use traffic simulation to assess how long it will your trip will take a different times of the day</div>
+						  	<div class='info_back'></div>		
+						</div>
+					</div>						
+				</div>				
+			</div>		
 
-			<a href="http://ncg.urbmet.com/v7/iso.html">
-				<div id="v3" class="state">
-					<div class="title">Cycling</div>
-					<div class="description"></div>
-					<div class='info'></div>
-				</div>
-			</a>
+			<!--Cycling-->
+			<div  class="state face front">				
+				<div class="flip">						
+				    <div class="card">					    	
+						<div class="face front">									
+					   		<div class="title">cycling</div>
+					   		<div id="v3" class='status'></div>
+					   		<div id="v3_a" class='time'></div>	
+					   		<div id="v3_b" class='system_state'></div>			
+							<div class='info_front'></div>																       
+						</div>
+						<div class="face back">
+						  	<div class="title_back">What is this?</div>
+						  	<div class="about_body">Considering wind and rain conditions we have a composite measure of how fast is to travel by bicycle.</div>	
+						  	<div class='info_back'></div>
+						</div>
+					</div>						
+				</div>				
+			</div>	
 
-			<a href="http://ncg.urbmet.com/v7/iso.html">
-				<div id="v4" class="state">
-					<div class="title">Weather</div>
-					<div ><img id="v4_a" src=""></div>
-					<div id="v4_b" class="description"></div>	
-					<div class='info'></div>				
-				</div>
-			</a>
+			<!--Activity-->
+			<div  class="state face front">				
+				<div class="flip">						
+				    <div class="card">					    	
+						<div class="face front">									
+					   		<div class="title">activity level of destination</div>
+					   		<div id="v4" class='status'></div>
+					   		<div id="v4_a" class='time'></div>	
+					   		<div id="v4_b" class='time'></div>		
+							<div class='info_front'></div>																       
+						</div>
+						<div class="face back">
+						  	<div class="title title_back">What is this?</div>
+						  	<div class="about_body">Using realtime analysis of social media activity we assess how busy your desination is.</div>
+						  	<div class='info_back'></div>		
+						</div>
+					</div>						
+				</div>				
+			</div>	
 
-			<a href="http://ncg.urbmet.com/v7/iso.html">
-				<div id="v5" class="state">
-					<div class="title">Activity</div>
-					<div class="description"></div>
-					<div class='info'></div>
-				</div>
-			</a>
+	</div>  <!--End STATE Wrapper -->
+	<div id="basicMap">				
+	</div><!--End Map --> 
 
-			<a href="http://ncg.urbmet.com/v7/iso.html">
-				<div id="v6" class="state">
-					<div class="title">Suprises</div>
-					<div class="description"></div>
-					<div class='info'></div>
-				</div>
-			</a>
+	<div>map</div>
+	<div>directions</div>
 
-			<a href="http://ncg.urbmet.com/v7/iso.html">
-				<div id="v7" class="state">
-					<div class="title">What can I reach in 15 minutes?</div>
-					<div class="description"></div>
-					<div class='info'></div>
-				</div>
-			</a>
-	</div>
+</div><!--End Outer Wrapper --> 
 
-</body>
+</body onload="layout()">
 
 </html>
