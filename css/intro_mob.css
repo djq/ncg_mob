@@ -3,6 +3,15 @@ body{
 	font-family: 'Glegoo', sans-serif;	
 }
 #cover {position: fixed; height: 100%; width: 100%; top:0; left: 0; background: #000; z-index:9999;}
+#outer_wrapper{
+	position: absolute;
+	float: center;
+	height: 100%;	
+	width: 1015px;
+	left: 50%;		
+	margin-left: -510px;
+	
+}
 #route{
 	background-color: #505050 ;
 

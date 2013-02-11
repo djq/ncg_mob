@@ -7,22 +7,13 @@ body{
 	background-color: #505050 ;
 
 }
-#user_address{
-	position: absolute;
-	float: left;
-	width: 75%;
-	margin-left: 11%;
-	margin-top: 20%;	
-}
-#address_start{
-	width: 75%;
-}
-#address_end{
-	width: 75%;
-}
-#geocode_button{
-	width: 75%;
-}
+
+
+
+
+
+
+
 #weather{
 	background-color: #505050 ;
 }

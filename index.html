@@ -11,6 +11,7 @@
     	<script src="lib/jquery.min.js"></script>
     	<script type="text/javascript" src="lib/OpenLayers.debug.js"></script> 		<!-- OpenLayers  -->	
     	<script type="text/javascript" src="lib/stamen.js"></script>			    <!-- stamen maps -->
+    	<script type="text/javascript" src="lib/simple-slider.js"></script>         <!-- slider -->
         <!--<script src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script>-->
         <!--<script src="http://openlayers.org/dev/OpenLayers.mobile.js"></script>-->
         <!--<link rel="stylesheet" href="http://openlayers.org/dev/theme/default/style.mobile.css" type="text/css">
@@ -21,13 +22,16 @@
         <!-- ########################## DQ Scripts ########################## -->        
         <script type="text/javascript" src="js/layout.js"></script> 	<!-- Intro functionality  -->	
         <script type="text/javascript" src="js/status.js"></script>       
-        <script type="text/javascript" src="js/openlayersSettings.js"></script> 		<!-- Openlayers styles  -->		
-        <script type="text/javascript" src="js/routing_createMap.js"></script>    		<!-- Make map controls  -->		
-		
+        <script type="text/javascript" src="js/openlayersSettings.js"></script> 		<!-- Openlayers styles  -->	
+        <script type="text/javascript" src="js/routing_createMap.js"></script>    		<!-- Make map controls  -->	
+        <script type="text/javascript" src="js/routing_animate.js"></script> 		<!-- make dynamic --> 
+
 		<!-- ########################## CSS STYLE ########################## -->                   
         <icon src="icon.png" />   
         <link rel="icon" type="image/ico" href="favicon.ico" >
         <link href='http://fonts.googleapis.com/css?family=Glegoo' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="css/simple-slider.css" type="text/css"> 
+        <link rel="stylesheet" href="css/simple-slider-volume.css" type="text/css"> 
 
 
 
@@ -37,7 +41,7 @@
 	<!-- <div id="cover">cityscale: realtime analysis of dublin</div> -->
 
 	<div id="outer_wrapper">
-	<div id="pagetitle"><a href="">&nbsp &nbsp realtime</a> | <a href="">accessibility</a></div>
+	<div id="pagetitle"><a href="">&nbsp &nbsp &nbsp &nbsp  &nbsp &nbsprealtime</a>  <a href="">dublin</a></div>
 	
 	<div id="wrapper">		
 				
@@ -46,21 +50,52 @@
 				<div id="u0" class="flip">							
 				    <div class="card">
 						<div class="face front">
-						   	<div class="title">directions</div>		
+						   	<div class="title">journey adviser</div>		
 						   	<div id="route" class='status'></div>
 						   	    		<!-- enter Origin/Dest-->
-							    		 <div id = "user_address" class="grayBg"> 
-							    					<div id="circle_start" class="circle"></div>
-							    					<input id="address_start" class="text" type="text" title = "Enter start" value="here">  
-							    					<div id="circle_end" class="circle"></div>
-							    					<input id="address_end" class="text" type="text" title = "Enter end" value="there">        
-							    					<input id="geocode_button" class= "input_button" type="button" value="calculate" onclick="codeAddress()">     
+						   	    		<div id="circle_start" class="circle"></div>
+						   	    		<div id="circle_end" class="circle"></div>
+							    		<div id = "user_address" class="grayBg"> 
+							    					
+						    					<input id="address_start" class="text" type="text" title = "current location" value="here">  
+						    					
+						    					<input id="address_end" class="text" type="text" title = "destination" value="there">        
+						    					<input id="geocode_button" class= "input_button" type="button" value="get directions" onclick="codeAddress()">     
+							    						
+							    				<div id="slider_timer">
+							    					<div id="timer_div">Time 0:00</div>
+							    					<div id="slider">
+									                    <input type="text" data-slider="true" data-slider-range="0,24" data-slider-step="6" data-slider-theme="volume">  
+									            	</div>									                
+									            </div>
+
 							    		</div>
+							    	
 						   	<div class='info_front'></div>						   						        	
 						</div>
 						<div class="face back">
-						  	<div class="title_back">What can I reach in 15 minutes?</div>
-						  	<div class='info_back'></div>
+						  	<div class="title">Accessibility</div>
+						  	<div id="route" class='status'></div>
+						  		<!-- enter Origin/Dest-->
+						   	    		
+							    		<div id = "user_address" class="grayBg"> 
+							    					
+						    					<input id="address_start" class="text" type="text" title = "current location" value="location">  					    					
+						    			     
+						    					<input id="geocode_button" class= "input_button" type="button" value="what is accessible" onclick="codeAddress()">     
+							    						
+							    				<div id="slider_timer">
+							    					<div id="timer_divx">Time 15 min</div>
+							    					<div id="sliderx">
+									                    <input type="text" data-slider="true" data-slider-range="15,80" data-slider-step="6" data-slider-theme="volume">  
+									            	</div>									                
+									            </div>
+
+							    		</div>
+
+
+						  	<div class='info_back'>
+						  	</div>
 						</div>
 					</div>
 				</div>					

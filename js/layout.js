@@ -72,6 +72,7 @@ var layout = function layout(){
 	if(w > 1260 ){	//large
 		s = 0; 
 		loadjscssfile("css/intro_large.css", "css") // dynamically load and add this .css file
+		loadjscssfile("css/intro_medium.css", "css") // dynamically load and add this .css file
    		$("#cover").hide();
    		console.log('large');
 	}
@@ -84,7 +85,12 @@ var layout = function layout(){
 	else if(w < 600){	//small
 		s = 2; 
 		loadjscssfile("css/intro_mob.css", "css") // dynamically load and add this .css file
+		//loadjscssfile("css/intro_medium.css", "css") // dynamically load and add this .css file
    		$("#cover").hide();
+   		$("#basicMap").remove();
+   		$("#wrapper").css({
+			'margin-left': 200		
+		})
    		console.log('mobile');
 	}
 	console.log(s);
@@ -111,7 +117,7 @@ var layout = function layout(){
 	})*/
 
 	flipDiv();	
-	cityState();	// call function to assess city state
+	//cityState();	// call function to assess city state
 	initialize();	// call map functions
 
 }
@@ -125,7 +131,6 @@ $(window).resize(function() {
 function getRandomArbitary (min, max) {
     return Math.random() * (max - min) + min;
 }
-
 
 // get city state
 var cityState = function cityState(){

@@ -36,7 +36,7 @@ initialize = function (){
 		
 		// Create map controls	
 		createMap();			// Main map		
-		//mapControls();			// Map controls 
+		//mapControls();		// Map controls 
 		//makeInterface();		// Interface			
 		
 		
@@ -70,6 +70,7 @@ initialize = function (){
 codeAddress = function() {
 
 	console.log('geocoding');	
+	cityState();	//update state of transport modes
 	
     var address = $("#address_start").val() //+ ', co. dublin, Ireland';
     	console.log(address);
@@ -325,6 +326,7 @@ createMap = function (){
 	/* handle sliding*/	
 	$("[data-slider]")
 	    .bind("slider:ready slider:changed", function (event, data) {
+	    	cityState();	//update state of transport modes
 	      /*$(this)
 	        .nextAll(".output:first")
 	          .html(data.value.toFixed(0)); */
@@ -372,6 +374,13 @@ createMap = function (){
 				r5.setVisibility(true);						
 	          }
 	    }); 
+
+	$("[data-slider]")
+		    .bind("sliderx:ready slider:changed", function (event, data) {
+		    	var t = data.value.toFixed(0)
+		    	console.log()
+		    	$('#timer_divx').html('TIME: ' + t + ' min' )
+		    	  });
 	
 }
 
