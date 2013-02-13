@@ -18,7 +18,7 @@ var a_unique = null;	// area summary
 //intial function
 initialize = function (){			
 		
-		createMap();			// make main map			
+		//createMap();			// make main map			
 		
 		$('#report').hide();					
 		geocoder = new google.maps.Geocoder();	// google function (limit of 15000 per day) but also rate-limited per time           
