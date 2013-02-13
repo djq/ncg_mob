@@ -15,7 +15,7 @@ $cost = $_POST['cost'];
 /********************************/
 // Connect to Database and Analyze
 /********************************/
-	  // open connection to linode
+	// open connection to linode
 	if (!$con){echo 'error connecting'; die; }	
 				
 	$routeData = getRoute($con, $start_id, $end_id, $cost);	// call routing function

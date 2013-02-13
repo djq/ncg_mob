@@ -1,15 +1,8 @@
 var start_point, end_point;
 var x1, y1, x2,y2, _x, _y;
-var lineLayer, ayerayer, pointStart, start, pointEnd, end;
+var lineLayer, pointStart, start, pointEnd, end;
 var geocoder;
-var tmp_global = 0;	
-var routeDemand = false;	
 var t1,t2,t3,t4;
-
-// apply styles to map layers
-var analysis_style_cur;
-var analysis_style_old;
-var results_style_map = new OpenLayers.StyleMap({'default':  results_style });
 
 // global vars for map
 var map;	
@@ -17,28 +10,15 @@ var proj_900913 = new OpenLayers.Projection('EPSG:900913');
 var proj_4326 = new OpenLayers.Projection('EPSG:4326');   
 var currentLayer, returnLayer, rasterLayer;
 
-// global vars for other parts
-var useTagBox;
-var col1, col2;	//chart colours
-var col1_borderColor, col2_borderColor; //chart border colours
-var clickNumber = 1;
-
-var w_style = new OpenLayers.StyleMap({'default': white_style});
-var b_style = new OpenLayers.StyleMap({'default': black_style });
-
 // to record what the user does, dump any sql results into a table with a unique ID
 // these IDs are null by default and any new query overwrites the last
 var r_unique = null;	// routing
 var a_unique = null;	// area summary
 
 //intial function
-initialize = function (){	
+initialize = function (){			
 		
-		// Create map controls	
-		createMap();			// Main map		
-		//mapControls();		// Map controls 
-		//makeInterface();		// Interface			
-		
+		createMap();			// make main map			
 		
 		$('#report').hide();					
 		geocoder = new google.maps.Geocoder();	// google function (limit of 15000 per day) but also rate-limited per time           
@@ -70,21 +50,20 @@ initialize = function (){
 codeAddress = function() {
 
 	console.log('geocoding');	
-	cityState();	//update state of transport modes
+	cityState();	//update state of transport modes (temporary)
 	
     var address = $("#address_start").val() //+ ', co. dublin, Ireland';    	
         geocoder.geocode( { 'address': address, 'region': 'IE'}, function(results1, status) {
 			if (status == google.maps.GeocoderStatus.OK) {											
 					x1 = results1[0].geometry.location.lat();
 					y1 = results1[0].geometry.location.lng();
-					console.log(address + 'Start Point - x1:', x1, ' y1: ', y1);								
+					console.log(address + ' - Start Point | x1:', x1, ' y1: ', y1);								
 			}	
 			else {			
 				console.log("Geocoding '" +  address + "' was not successful. Reason: " + status);
 		  }	  
 	});	
  
-
 	var address = $("#address_end").val()  //+ ', co. dublin, Ireland';
 		
 		geocoder.geocode( { 'address': address, 'region': 'IE'}, function(results2, status) {
@@ -92,7 +71,7 @@ codeAddress = function() {
 		
 				x2 = results2[0].geometry.location.lat();
 				y2 = results2[0].geometry.location.lng();				
-				console.log(address + '- End Point - x2:', x2, ' y2: ', y2);					
+				console.log(address + ' - End Point | x2:', x2, ' y2: ', y2);					
 				
 				start_point = new OpenLayers.Geometry.Point(y1, x1);
 				end_point = new OpenLayers.Geometry.Point(y2, x2);
@@ -175,51 +154,25 @@ createMap = function (){
 			numZoomLevels: 20,
 			maxResolution: 15654.0339,
 			maxExtent: new OpenLayers.Bounds(-20037508.34, -20037508.34, 20037508.34, 20037508.34),
-			displayProjection: proj_900913,			
-			/*controls: [		//remove controls from the screen
-				new OpenLayers.Control.Navigation(),
-				new OpenLayers.Control.ArgParser(),
-				new OpenLayers.Control.Attribution()
-			],*/
+			displayProjection: proj_900913,		
 			renderers: ["SVG", "Canvas", "VML"]
 		};	
-		var options2 = {
-			projection: proj_900913,
-			units: "m",
-			numZoomLevels: 20,
-			maxResolution: 15654.0339,
-			maxExtent: new OpenLayers.Bounds(-20037508.34, -20037508.34, 20037508.34, 20037508.34),
-			displayProjection: proj_900913/*,			
-			controls: [		//remove controls from the screen
-				new OpenLayers.Control.Navigation(),
-				new OpenLayers.Control.ArgParser(),
-				new OpenLayers.Control.Attribution()
-			]*/
-		};		
-					
-		//map = new OpenLayers.Map("basicMap", options);
+	
 		map = new OpenLayers.Map("basicMap", options);
 
-		// Use OSM
+		// OSM Basemap
 		//osm = new OpenLayers.Layer.OSM();			
 		//map.addLayer(osm);				
 
-		// using stamen
+		// Stamen Basemap
 		var layer = new OpenLayers.Layer.Stamen("toner");			
 		map.addLayer(layer);
 	
-		//var mapCenter = new OpenLayers.LonLat(-7235119,3977082);				
-		//map.setCenter(53.35, -6.26, 11);  
-		centerMap(-6.0, 53.31,  11)		// center map on Ireland
+		centerMap(-6.0, 53.31, 11)		// center map on Ireland 
 				
-		currentLayer = new OpenLayers.Layer.Vector("currentLayer");		// Add drawing layer #0		
-		oldLayer = new OpenLayers.Layer.Vector("oldLayer");				// Add drawing layer #1
-		returnLayer = new OpenLayers.Layer.Vector("returnLayer", {styleMap:results_style});			// results from polygon		
-		oldReturnLayer = new OpenLayers.Layer.Vector("oldReturnLayer", {styleMap:results_old});		// results from polygon	
-		routingLayer = new OpenLayers.Layer.Vector("routingLayer", {styleMap:routing_style});		// from prouting using start/end		
 		pointStart = new OpenLayers.Layer.Vector("start", {styleMap:startPoint});	
-		pointEnd = new OpenLayers.Layer.Vector("end", {styleMap:endPoint});	        
-		map.addLayers([currentLayer, oldLayer, returnLayer, oldReturnLayer, routingLayer, pointStart, pointEnd]);	
+		pointEnd = new OpenLayers.Layer.Vector("end", {styleMap:endPoint});	                
+		map.addLayers([pointStart, pointEnd]);	
 
 		r1 = new OpenLayers.Layer.Vector("r1", {styleMap:routing_style});		// routing layers
 		r2 = new OpenLayers.Layer.Vector("r2", {styleMap:routing_style});	
@@ -228,8 +181,7 @@ createMap = function (){
 		r5 = new OpenLayers.Layer.Vector("r5", {styleMap:routing_style});	
 		r6 = new OpenLayers.Layer.Vector("r6", {styleMap:routing_style});		
 
-		map.addLayers([r1, r2, r3, r4, r5, r6]);	
-		
+		map.addLayers([r1, r2, r3, r4, r5, r6]);			
 
 		r1.setVisibility(true);
 		r2.setVisibility(false);	
@@ -238,50 +190,7 @@ createMap = function (){
 		r5.setVisibility(false);	
 		//r6.setVisibility(false);	
 
-	// handle mouse interactions
-	var highlightCtrl = new OpenLayers.Control.SelectFeature(returnLayer, {
-		hover: true,	
-		clickout: true,
-		highlightOnly: true,	
-		//overFeature: function(e) { updateSelectedCharts(e.data.vol); console.log(e); tmp_global = e; e.attributes.width = 40; returnLayer.redraw({force:true});	},	
-		onSelect: function(e) { updateSelectedCharts(e.feature.data.vol); },	
-		renderIntent: "temporary"
-	});
-
-	map.addControl(highlightCtrl);
-	highlightCtrl.activate();
 	
-	       selectControl = new OpenLayers.Control.SelectFeature(
-                [returnLayer, pointStart, pointEnd],
-                {   hover: true,
-                    clickout: true, toggle: false,
-                    multiple: false, hover: false,
-                    toggleKey: "ctrlKey", // ctrl key removes from selection
-                    multipleKey: "shiftKey" // shift key adds to selection
-                }
-            );
-            
-            map.addControl(selectControl);
-            selectControl.activate();       
-            
-            returnLayer.events.on({
-                "featureselected": function(e) {
-                    updateSelectedCharts(e.feature.data.vol);                    
-                    console.log(e)
-                },
-                "featureunselected": function(e) {
-                    //console.log(e)
-                }
-            });
-            /*
-            pointStart.events.on({
-                "featureselected": function(e) {
-                    showStatus("selected feature "+e.feature.id+" on Vector Layer 2");
-                },
-                "featureunselected": function(e) {
-                    showStatus("unselected feature "+e.feature.id+" on Vector Layer 2");
-                }
-            });*/
 
             // Make points dragable	
 	dragStart = new OpenLayers.Control.DragFeature(pointStart, {
@@ -391,6 +300,8 @@ centerMap = function (lon, lat, zoomLevel) {
 	
 }
 
+// get initial route and return 
+// ids of start and end points
 getRoute = function (){	
 
 	routeDemand = true;
@@ -399,18 +310,18 @@ getRoute = function (){
 	if(routeDemand){
 		$.ajax({ 
 				type: "POST",
-				url: "php/analysis/routing_id.php",       
+				url: "php/getRoute_ID.php",       
 				data:{x1: x1, y1:y1, x2: x2, y2:y2, r_id:r_unique, start_ad: $("#address_start").val(), end_ad: $("#address_end").val()}, 
 				async: true,
 				success: function(r){													
 
-					getRoutes(r.r_id, r.start_id, r.end_id, 't2', r2); 					
-					getRoutes(r.r_id, r.start_id, r.end_id, 't3', r3); 
-					getRoutes(r.r_id, r.start_id, r.end_id, 't4', r4);
-					getRoutes(r.r_id, r.start_id, r.end_id, 't5', r5);  
-					//getRoutes(r.r_id, r.start_id, r.end_id, 't6', r6);  					
+					_getRoute(r.r_id, r.start_id, r.end_id, 't2', r2); 					
+					_getRoute(r.r_id, r.start_id, r.end_id, 't3', r3); 
+					_getRoute(r.r_id, r.start_id, r.end_id, 't4', r4);
+					_getRoute(r.r_id, r.start_id, r.end_id, 't5', r5);  
+					//_getRoute(r.r_id, r.start_id, r.end_id, 't6', r6);  					
 
-					clearAll(false);				// get rid of everything, aside from start/end points																										
+					clearAll(false);	// get rid of everything, aside from start/end points																										
 					callTimer(r1);		// run timer				
 
 					if(r1.features[0] != null){ r1.removeAllFeatures(); }
@@ -430,11 +341,13 @@ getRoute = function (){
 
 }
 
-getRoutes = function(r_id, start_id, end_id, cost, layer){
+// now that the start/end points have been identified,
+// just use these to identify routes, using different costs for times of day
+_getRoute = function(r_id, start_id, end_id, cost, layer){
 
 	$.ajax({ 
 		type: "POST",
-		url: "php/analysis/routing_with_id.php",       
+		url: "php/getRoute.php",       
 		data:{r_id:r_id, start_id: start_id, end_id: end_id, cost:cost}, 
 		async: true,
 		success: function(r){		

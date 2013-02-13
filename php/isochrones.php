@@ -1,7 +1,6 @@
 <?php    
 //error_reporting(0);				// Turn off all error reporting
 error_reporting(E_ALL);				// use during debugging ONLY (this can be a security risk otherwise)
-include('../reports/dynamicValues.php');
 include('/home/urbmet/server_connections/linode_ncg.php');
 
 $msc = microtime(true);				// time query - start timer
