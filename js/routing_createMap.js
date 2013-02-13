@@ -72,29 +72,27 @@ codeAddress = function() {
 	console.log('geocoding');	
 	cityState();	//update state of transport modes
 	
-    var address = $("#address_start").val() //+ ', co. dublin, Ireland';
-    	console.log(address);
+    var address = $("#address_start").val() //+ ', co. dublin, Ireland';    	
         geocoder.geocode( { 'address': address, 'region': 'IE'}, function(results1, status) {
 			if (status == google.maps.GeocoderStatus.OK) {											
 					x1 = results1[0].geometry.location.lat();
 					y1 = results1[0].geometry.location.lng();
-					console.log('Start Point - x1:', x1, ' y1: ', y1);	
-							
+					console.log(address + 'Start Point - x1:', x1, ' y1: ', y1);								
 			}	
 			else {			
-				console.log("Geocoding start address was not successful. Reason: " + status);
+				console.log("Geocoding '" +  address + "' was not successful. Reason: " + status);
 		  }	  
 	});	
  
 
 	var address = $("#address_end").val()  //+ ', co. dublin, Ireland';
-		console.log(address);
+		
 		geocoder.geocode( { 'address': address, 'region': 'IE'}, function(results2, status) {
 			if (status == google.maps.GeocoderStatus.OK) {
 		
 				x2 = results2[0].geometry.location.lat();
 				y2 = results2[0].geometry.location.lng();				
-				console.log('End Point - x2:', x2, ' y2: ', y2);					
+				console.log(address + '- End Point - x2:', x2, ' y2: ', y2);					
 				
 				start_point = new OpenLayers.Geometry.Point(y1, x1);
 				end_point = new OpenLayers.Geometry.Point(y2, x2);
