@@ -3,6 +3,7 @@
 error_reporting(E_ALL);				// use during debugging ONLY (this can be a security risk otherwise)
 include('routing.php');
 include('../reports/dynamicRoutingValues.php');
+include('/home/urbmet/server_connections/linode_ncg.php');
 
 $msc = microtime(true);				// time query - start timer
 $key =''; 							// make the 'key' empty for testing 
@@ -19,7 +20,7 @@ $end_ad = $_POST['end_ad'];
 //////////////////////////////////////////////
 // Connect to Database and Analyze
 //////////////////////////////////////////////
-	$con = pg_connect('host=178.79.170.172 port=5432 dbname=routing user=postgres password=s0meth1ng');  // open connection to linode
+	// open connection to linode
 	if (!$con){echo 'error connecting'; die; }	
 	
 	$sql = 	"SELECT source
