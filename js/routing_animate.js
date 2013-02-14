@@ -2,7 +2,7 @@ layerTimer = function(count, stop, layer){
     if(stop){                              
             $('#timer_div').html('TIME: ' + (24 - ((count-1) * 6)) + ':00' ) //tidy this up, very messy            
             $("[data-slider]").simpleSlider("setValue", (24 - ((count-1) * 6)));  // move slider here:
-            console.log('TIME: ' + (24 - ((count-1) * 6)) + ':00')
+            //console.log('TIME: ' + (24 - ((count-1) * 6)) + ':00')
       }
 }
 

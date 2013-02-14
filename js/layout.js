@@ -140,7 +140,7 @@ var cityState = function cityState(){
 		id = '#v' + i;
 		status = '#v' + i + '_a';
 		time = '#v' + i + '_b';
-		console.log(id);
+		//console.log(id);
 		z = Math.round(getRandomArbitary(0,4));
 		$(id).css({
 			'background-color': colors[z] 

@@ -1,6 +1,6 @@
 var start_point, end_point;
 var x1, y1, x2,y2, _x, _y;
-var lineLayer, pointStart, start, pointEnd, end;
+var lineLayer, pointStart, start, pointEnd, end, rain;
 var geocoder;
 var t1,t2,t3,t4;
 
@@ -86,9 +86,9 @@ codeAddress = function() {
 												
 				_y = (y1 + y2)/2;	// get avg between point1 and point2 
 				_x = (x1 + x2)/2;					
-				var centerPoint = new OpenLayers.LonLat(_y, _x);	       				
-				centerPoint.transform(new OpenLayers.Projection("EPSG:4326"), map.getProjectionObject()); 
-				map.setCenter(centerPoint, 12); 	
+				console.log('center of route: '+ _y,_x)
+				//centerMap(_y, _x, 13);
+				centerMap(y1, x1, 13); 	
 
 				performRouting();
 							
@@ -168,7 +168,7 @@ createMap = function (){
 		var layer = new OpenLayers.Layer.Stamen("toner");			
 		map.addLayer(layer);
 	
-		centerMap(-6.0, 53.31, 11)		// center map on Ireland 
+		centerMap(-6.0, 53.31, 11)		// center map on Dublin 
 				
 		pointStart = new OpenLayers.Layer.Vector("start", {styleMap:startPoint});	
 		pointEnd = new OpenLayers.Layer.Vector("end", {styleMap:endPoint});	                
@@ -192,7 +192,7 @@ createMap = function (){
 
 		/* TEST */
 		// add weather layers
-		var rain = new OpenLayers.Layer.WMS("OpenWeatherOverlay",
+		rain = new OpenLayers.Layer.WMS("OpenWeatherOverlay",
                                    "http://wms.openweathermap.org/service",
                                    {
                                        layers: "precipitation_cls",
@@ -202,6 +202,15 @@ createMap = function (){
                                    });
 		map.addLayers([rain]);
 		rain.setVisibility(false);
+
+		map.events.register("click", map, function (e) {  			
+			var point = map
+				.getLonLatFromPixel( this.events.getMousePosition(e) )
+				.transform(map.getProjectionObject(), new OpenLayers.Projection("EPSG:4326"));    
+		    console.log(point.lon, point.lat)
+		});
+
+
 		/* TEST */
 
             // Make points dragable	
@@ -376,6 +385,9 @@ _getRoute = function(r_id, start_id, end_id, cost, layer){
 
 }
 
+showWeather = function(){
+	rain.setVisibility(true);
+}
 
 
 
