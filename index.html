@@ -43,7 +43,7 @@
 	<!-- <div id="cover">cityscale: realtime analysis of dublin</div> -->
 
 	<div id="outer_wrapper">
-	<div id="pagetitle"><a href="">&nbsp &nbsp &nbsp &nbsp  &nbsp &nbsprealtime</a>  <a href="">dublin</a></div>
+	<!-- <div id="pagetitle"><a href="">&nbsp &nbsp &nbsp &nbsp  &nbsp &nbsprealtime</a>  <a href="">dublin</a></div> -->
 	
 	<div id="wrapper">		
 				
@@ -110,12 +110,12 @@
 				<div class="flip">						
 				    <div class="card">					    	
 						<div class="face front">									
-					   		<div class="title">weather</div>
-							<div ><img id="u1_a" src=""></div>
+					   		<div class="title">weather</div>							
 							<div id="weather" class='status'>
-								<div class='status_icon'><img src="img/icons/cloud.png" class="s_icon"></div>
-							</div>
+								<div id="u1_a" class='status_icon'><img id="weather_id" src="img/icons/cloud.png" class="s_icon"></div>
+							</div>							
 							<div id="u1_b" class="description"></div>
+							<input type="button" value="show" onclick="showWeather()">
 							<div class='info_front'></div>																       
 						</div>
 						<div class="face back">
@@ -198,7 +198,7 @@
 				<div class="flip">						
 				    <div class="card">					    	
 						<div class="face front">									
-					   		<div class="title">activity level of destination</div>
+					   		<div class="title">activity level</div>
 					   		<div id="v4" class='status'>
 					   			<div class='status_icon'><img src="img/icons/twitter.png" class="s_icon"></div>
 					   		</div>

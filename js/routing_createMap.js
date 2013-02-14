@@ -18,7 +18,7 @@ var a_unique = null;	// area summary
 //intial function
 initialize = function (){			
 		
-		//createMap();			// make main map			
+		createMap();			// make main map			
 		
 		$('#report').hide();					
 		geocoder = new google.maps.Geocoder();	// google function (limit of 15000 per day) but also rate-limited per time           
@@ -190,7 +190,19 @@ createMap = function (){
 		r5.setVisibility(false);	
 		//r6.setVisibility(false);	
 
-	
+		/* TEST */
+		// add weather layers
+		var rain = new OpenLayers.Layer.WMS("OpenWeatherOverlay",
+                                   "http://wms.openweathermap.org/service",
+                                   {
+                                       layers: "precipitation_cls",
+                                       transparent: true
+                                   }, {
+                                       opacity: 0.5
+                                   });
+		map.addLayers([rain]);
+		rain.setVisibility(false);
+		/* TEST */
 
             // Make points dragable	
 	dragStart = new OpenLayers.Control.DragFeature(pointStart, {

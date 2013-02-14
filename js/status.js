@@ -16,6 +16,8 @@ getWeather(53.3428, -6.266, function (data) {
    
     img_src = "http://openweathermap.org/img/w/" + data.list[0].weather[0].icon + ".png";    
     $('#u1_a').attr("src", img_src);
+    $('#weather_id').attr("src", img_src);
+
 
    	$('#u1_b').html(
       x.list[0].name + ': ' + data.list[0].weather[0].description + '<br/>' +
