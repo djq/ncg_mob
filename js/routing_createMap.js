@@ -3,6 +3,8 @@ var x1, y1, x2,y2, _x, _y;
 var lineLayer, pointStart, start, pointEnd, end, rain;
 var geocoder;
 var t1,t2,t3,t4;
+// tmp
+var extentLayer;
 
 // global vars for map
 var map;	
@@ -82,14 +84,9 @@ codeAddress = function() {
 				start = new OpenLayers.Feature.Vector(start_point.transform(new OpenLayers.Projection("EPSG:4326"), map.getProjectionObject()));	
 				end = new OpenLayers.Feature.Vector(end_point.transform(new OpenLayers.Projection("EPSG:4326"), map.getProjectionObject()));	
 				pointStart.addFeatures([start]);
-				pointEnd.addFeatures([end]);			
+				pointEnd.addFeatures([end]);
+				extentLayer.addFeatures([start, end]);			
 												
-				_y = (y1 + y2)/2;	// get avg between point1 and point2 
-				_x = (x1 + x2)/2;					
-				console.log('center of route: '+ _y,_x)
-				//centerMap(_y, _x, 13);
-				centerMap(y1, x1, 13); 	
-
 				performRouting();
 							
 			} 
@@ -134,6 +131,8 @@ performRouting = function(){
 		// also check x/y are ok
 		if(x1 != undefined && y1 != undefined && y2 != undefined && x2 != undefined){
 			getRoute();	
+			var ex=extentLayer.getDataExtent();		
+			map.zoomToExtent(ex);
 		}
 		else{
 			console.log('Function performRouting: problem geocoding address');
@@ -171,8 +170,10 @@ createMap = function (){
 		centerMap(-6.0, 53.31, 11)		// center map on Dublin 
 				
 		pointStart = new OpenLayers.Layer.Vector("start", {styleMap:startPoint});	
-		pointEnd = new OpenLayers.Layer.Vector("end", {styleMap:endPoint});	                
-		map.addLayers([pointStart, pointEnd]);	
+		pointEnd = new OpenLayers.Layer.Vector("end", {styleMap:endPoint});	  
+		extentLayer = new OpenLayers.Layer.Vector("extents", {styleMap:endPoint});	                
+		map.addLayers([pointStart, pointEnd, extentLayer]);	
+		extentLayer.setVisibility(false);	// start/end points added to layer for boundary calculation
 
 		r1 = new OpenLayers.Layer.Vector("r1", {styleMap:routing_style});		// routing layers
 		r2 = new OpenLayers.Layer.Vector("r2", {styleMap:routing_style});	
