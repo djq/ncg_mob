@@ -48,6 +48,17 @@ showGeoJson = function(geoJsonArray, t, layer){
 	layer.addFeatures(geojson_format.read(featurecollection));
 }
 
+getColor = function (val) {    
+   
+    return val > 6 ? '#800026' :
+           val > 5 ? '#BD0026' :
+           val > 4 ? '#E31A1C' :
+           val > 3 ? '#FC4E2A' :
+           val > 2 ? '#FD8D3C' :
+           val > 1 ? '#FEB24C' :
+           val > 0  ? '#FED976' :
+                      '#FFEDA0' ;
+}
 
 showGeoJsonRoutes = function(geoJsonArray, layer){
 	
@@ -62,7 +73,8 @@ showGeoJsonRoutes = function(geoJsonArray, layer){
 		             	}, 
             "type": "Feature", 
             "properties": {
-				width: t[0]		
+				//width: t[0] * 2,
+				myColor: function(){return "red"}	//getColor(t[0]) //				
             }
          }] 
        };

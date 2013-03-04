@@ -71,7 +71,7 @@ var layout = function layout(){
 	console.log(w, h);	
 	if(w > 1260 ){	//large
 		s = 0; 
-		loadjscssfile("css/intro_large.css", "css") // dynamically load and add this .css file
+		//loadjscssfile("css/intro_large.css", "css") // dynamically load and add this .css file
 		loadjscssfile("css/intro_medium.css", "css") // dynamically load and add this .css file
    		$("#cover").hide();
    		console.log('large');
@@ -84,7 +84,7 @@ var layout = function layout(){
 	}
 	else if(w < 600){	//small
 		s = 2; 
-		loadjscssfile("css/intro_mob.css", "css") // dynamically load and add this .css file
+		loadjscssfile("css/intro_medium.css", "css") // dynamically load and add this .css file
 		//loadjscssfile("css/intro_medium.css", "css") // dynamically load and add this .css file
    		$("#cover").hide();
    		$("#basicMap").remove();

@@ -131,8 +131,27 @@ performRouting = function(){
 		// also check x/y are ok
 		if(x1 != undefined && y1 != undefined && y2 != undefined && x2 != undefined){
 			getRoute();	
-			var ex=extentLayer.getDataExtent();		
-			map.zoomToExtent(ex);
+			
+			/*var ex=extentLayer.getDataExtent();		
+			map.zoomToExtent(ex); */
+
+			/*var ft = extentLayer.features[0];
+			var bounds = ft.geometry.bounds;
+			if(zoom)
+			    map.zoomToExtent(bounds);
+			else
+			    map.setCenter(bounds.getCenterLonLat());*/
+
+			/*var bounds = extentLayer.geometry.bounds;
+			map.setCenter(bounds.getCenterLonLat())*/
+
+			// or
+			//map.setCenter(pointlayer.getDataExtent().getCenterLonLat(), 13);
+			//map.zoomToExtent(extentLayer.getDataExtent(), true)
+			//map.setCenter(extentLayer.getDataExtent().getCenterLonLat())
+			centerMap(-6.18, 53.337, 12)
+
+
 		}
 		else{
 			console.log('Function performRouting: problem geocoding address');

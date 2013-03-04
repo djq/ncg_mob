@@ -100,23 +100,24 @@ var endPoint = new OpenLayers.StyleMap({
 		})
 });
 
+/* edit this to change current routes returned*/
 var routing_style = new OpenLayers.StyleMap({
-		"default": new OpenLayers.Style({
-	fillColor: "red",			
-	strokeWidth: '${width}',
-	fillOpacity: 0.2, 
-	strokeColor: "red",
+"default": new OpenLayers.Style({
+	//fillColor: "red",			
+	//strokeWidth: '${width}',
+	strokeWidth: 3,	
+	strokeColor: "${myColor}",
 	zindex:-10
 	}),
 "temporary": new OpenLayers.Style({
-	fillColor: "gray",			
+	//fillColor: "gray",			
 	strokeWidth: 8,
 	fillOpacity: 0.2, 
 	strokeColor: "gray",
 	zindex:-10
 		}),
 "select": new OpenLayers.Style({
-	fillColor: "blue",			
+	//fillColor: "blue",			
 	strokeWidth: 8,
 	fillOpacity: 0.2, 
 	strokeColor: "blue",
